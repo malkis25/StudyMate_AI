@@ -97,7 +97,11 @@
     <div class="tiles">
       <div class="tile">📚<br><b>AI Summary</b><p>Rangkuman materi</p></div>
       <div class="tile">📝<br><b>AI Quiz</b><p>Latihan soal</p></div>
-      <div class="tile">📂<br><b>My Materials</b><p>Materi belajar</p></div>
+     <div class="tile" onclick="openMaterials()">
+  📂<br>
+  <b>My Materials</b>
+  <p>Materi belajar</p>
+     </div>
       <div class="tile">🌸<br><b>Study Space</b><p>Ruang belajarmu</p></div>
     </div>
 
@@ -313,6 +317,12 @@
       uploadMessage.textContent = "Gagal membaca: " + error.message;
     }
   });
+</script>
+<script>
+function openMaterials() {
+  document.getElementById("dashboard").classList.add("hidden");
+  document.getElementById("materialsSection").classList.remove("hidden");
+}
 </script>
 </body>
 </html>
