@@ -1,1 +1,214 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#9273c9">
+  <title>StudyMate AI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f7f3ff;
+      color: #403451;
+    }
+    header {
+      background: #9273c9;
+      color: white;
+      padding: 22px;
+      text-align: center;
+    }
+    header h1 { margin: 0 0 7px; }
+    main {
+      max-width: 650px;
+      margin: 30px auto;
+      padding: 18px;
+    }
+    .card {
+      background: white;
+      padding: 24px;
+      border-radius: 18px;
+      box-shadow: 0 5px 20px #ddd3ee;
+      margin-bottom: 18px;
+    }
+    h2 { color: #7654ad; }
+    input {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border: 1px solid #d9cbea;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 13px 18px;
+      margin: 6px 4px 6px 0;
+      background: #9273c9;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button.secondary { background: #c9b5e8; color: #403451; }
+    .hidden { display: none; }
+    .tiles {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .tile {
+      background: #f0e9fb;
+      padding: 22px 12px;
+      border-radius: 14px;
+      text-align: center;
+    }
+    #message { color: #7654ad; }
+    footer { text-align: center; color: #8c819b; padding: 20px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>💜 StudyMate AI</h1>
+  <p>Your Personal Learning Space</p>
+</header>
+
+<main>
+  <section class="card" id="authSection">
+    <h2>Selamat Datang!</h2>
+    <p>Masuk atau buat akun untuk mulai belajar.</p>
+
+    <input id="name" type="text" placeholder="Nama lengkap (untuk daftar)">
+    <input id="email" type="email" placeholder="Email">
+    <input id="password" type="password" placeholder="Password">
+
+    <button id="registerBtn">Daftar Akun</button>
+    <button id="loginBtn" class="secondary">Login</button>
+    <p id="message"></p>
+  </section>
+
+  <section class="card hidden" id="dashboard">
+    <h2>Halo, <span id="userName">Mahasiswa</span>! 🌷</h2>
+    <p>Selamat belajar bersama StudyMate AI.</p>
+
+    <div class="tiles">
+      <div class="tile">📚<br><b>AI Summary</b><p>Rangkuman materi</p></div>
+      <div class="tile">📝<br><b>AI Quiz</b><p>Latihan soal</p></div>
+      <div class="tile">📂<br><b>My Materials</b><p>Materi belajar</p></div>
+      <div class="tile">🌸<br><b>Study Space</b><p>Ruang belajarmu</p></div>
+    </div>
+
+    <button id="logoutBtn">Logout</button>
+    <p id="accountMessage"></p>
+  </section>
+</main>
+
+<footer>StudyMate AI © 2026</footer>
+
+<script type="module">
+  import { initializeApp } from
+    "https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js";
+
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut,
+    updateProfile
+  } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js";
+
+  import {
+    getFirestore,
+    doc,
+    setDoc
+  } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js";
+
+  // GANTI BAGIAN INI DENGAN KONFIGURASI FIREBASE MILIKMU
+  const firebaseConfig = {
+    apiKey: "AIzaSyABHhol-CvbEW4UgrmcxqDSDSGYsIakxyY",
+    authDomain: "studymate-ai-648bb.firebaseapp.com",
+    projectId: "studymate-ai-648bb",
+    appId: "1:499533100646:web:5f667f78cb6d5781179fa7"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const authSection = document.getElementById("authSection");
+  const dashboard = document.getElementById("dashboard");
+  const message = document.getElementById("message");
+
+  document.getElementById("registerBtn").onclick = async () => {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    if (!name || !email || !password) {
+      message.textContent = "Lengkapi semua kolom terlebih dahulu.";
+      return;
+    }
+
+    if (password.length < 6) {
+      message.textContent = "Password minimal 6 karakter.";
+      return;
+    }
+
+    try {
+      message.textContent = "Membuat akun...";
+      const result = await createUserWithEmailAndPassword(
+        auth, email, password
+      );
+
+      await updateProfile(result.user, { displayName: name });
+
+      await setDoc(doc(db, "users", result.user.uid, "profile", "main"), {
+        name: name,
+        email: email,
+        createdAt: new Date().toISOString()
+      });
+
+      message.textContent = "Akun berhasil dibuat!";
+    } catch (error) {
+      message.textContent = "Gagal: " + error.message;
+    }
+  };
+
+  document.getElementById("loginBtn").onclick = async () => {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+
+    try {
+      message.textContent = "Sedang login...";
+      await signInWithEmailAndPassword(auth, email, password);
+      message.textContent = "";
+    } catch (error) {
+      message.textContent = "Login gagal: " + error.message;
+    }
+  };
+
+  document.getElementById("logoutBtn").onclick = async () => {
+    await signOut(auth);
+  };
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      authSection.classList.add("hidden");
+      dashboard.classList.remove("hidden");
+      document.getElementById("userName").textContent =
+        user.displayName || "Mahasiswa";
+      document.getElementById("accountMessage").textContent =
+        "Login sebagai " + user.email;
+    } else {
+      authSection.classList.remove("hidden");
+      dashboard.classList.add("hidden");
+    }
+  });
+</script>
+
+</body>
+</html>
