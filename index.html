@@ -230,6 +230,11 @@
   <p id="uploadMessage"></p>
 
   <div id="materialResult"></div>
+<button id="summarizeBtn" type="button">
+  ✨ Buat Ringkasan
+</button>
+
+<div id="summaryResult"></div>
 </section>
 
 <script type="module">
@@ -241,7 +246,7 @@
 
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
-
+let currentMaterialText = "";
   const fileInput = document.getElementById("materialFile");
   const readButton = document.getElementById("readMaterialBtn");
   const uploadMessage = document.getElementById("uploadMessage");
@@ -300,7 +305,8 @@
 
       if (!extractedText.trim()) {
         throw new Error("Teks tidak ditemukan dalam dokumen.");
-      }
+      } 
+      currentMaterialText = extractedText;
 
       const heading = document.createElement("h3");
       heading.textContent = file.name;
@@ -317,7 +323,19 @@
       uploadMessage.textContent = "Gagal membaca: " + error.message;
     }
   });
-</script>
+const summarizeButton = document.getElementById("summarizeBtn");
+const summaryResult = document.getElementById("summaryResult");
+
+summarizeButton.addEventListener("click", () => {
+  if (!currentMaterialText.trim()) {
+    summaryResult.textContent =
+      "Silakan baca materi PDF atau PPTX terlebih dahulu.";
+    return;
+  }
+
+  summaryResult.textContent =
+    "Materi siap diproses untuk membuat ringkasan.";
+});</script>
 <script>
 function openMaterials() {
   document.getElementById("dashboard").classList.add("hidden");
