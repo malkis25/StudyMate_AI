@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#8d73c7">
+<title>StudySpace AI — Your Personal Learning Space</title>
+<style>
+:root{--purple:#8d73c7;--deep:#66519c;--lav:#eee8fb;--pale:#f8f6fd;--ink:#302943;--muted:#827a91;--white:#fff;--line:#e9e3f2;--shadow:0 12px 34px #55417b12}
+*{box-sizing:border-box}body{margin:0;background:var(--pale);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif}button,input,textarea{font:inherit}button{cursor:pointer;border:0}.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.side{background:#fff;border-right:1px solid var(--line);padding:26px 18px;position:sticky;top:0;height:100vh}.brand{display:flex;align-items:center;gap:11px;padding:0 9px 28px}.logo{width:42px;height:42px;border-radius:15px;background:linear-gradient(145deg,#bca9ed,#8065bd);display:grid;place-items:center;color:white;font-size:21px}.brand strong{display:block;font-size:18px}.brand small{color:var(--muted);font-size:11px;letter-spacing:1.2px}.navlabel{font-size:10px;color:#aaa1b7;font-weight:800;letter-spacing:1.4px;padding:12px 12px 7px}.nav button{display:flex;gap:12px;align-items:center;width:100%;padding:12px;border-radius:12px;background:transparent;color:#746b83;text-align:left;margin:3px 0}.nav button.active,.nav button:hover{background:var(--lav);color:var(--deep);font-weight:700}.nav .ico{width:20px;text-align:center}.sidebottom{position:absolute;bottom:20px;left:18px;right:18px;background:#f8f5fd;padding:15px;border-radius:15px;color:var(--muted);font-size:12px}.main{min-width:0}.top{height:76px;background:#ffffffd9;backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 34px;position:sticky;top:0;z-index:4}.crumb{font-weight:700}.user{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:13px}.avatar{width:36px;height:36px;border-radius:50%;background:#e4daf8;color:var(--deep);display:grid;place-items:center;font-weight:800}.content{max-width:1180px;margin:auto;padding:32px}.page{display:none}.page.active{display:block}.welcome{background:linear-gradient(115deg,#e9e0fb,#f6efff 65%,#fff);border:1px solid #e8def8;border-radius:24px;padding:30px;display:flex;justify-content:space-between;gap:20px;align-items:center;overflow:hidden}.eyebrow{color:var(--deep);font-size:11px;letter-spacing:1.5px;font-weight:800}.welcome h1{font-size:clamp(25px,4vw,35px);line-height:1.15;margin:9px 0}.welcome p{color:#756b87;margin:0;max-width:510px}.orb{font-size:78px;opacity:.8;padding:0 28px}.btn{background:var(--purple);color:white;padding:11px 17px;border-radius:11px;font-weight:700;box-shadow:0 6px 15px #8d73c733}.btn:hover{background:var(--deep)}.btn.light{background:#f0eafb;color:var(--deep);box-shadow:none}.btn.ghost{background:white;color:var(--deep);border:1px solid var(--line);box-shadow:none}.sectionhead{display:flex;align-items:center;justify-content:space-between;margin:28px 0 14px}.sectionhead h2{font-size:18px;margin:0}.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.stat,.tile,.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:19px;box-shadow:var(--shadow)}.stat .sico,.tile .sico{width:42px;height:42px;border-radius:13px;background:var(--lav);display:grid;place-items:center;font-size:20px;margin-bottom:13px}.stat b{font-size:24px;display:block}.stat span{color:var(--muted);font-size:12px}.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.tile{cursor:pointer;transition:.2s}.tile:hover{transform:translateY(-3px);border-color:#cbbce9}.tile h3{font-size:15px;margin:0 0 4px}.tile p{font-size:12px;color:var(--muted);margin:0}.panel{margin-top:18px}.panel h2,.panel h3{margin:0 0 12px}.field{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:11px;background:#fff;outline:none;color:var(--ink);margin:6px 0 13px}.field:focus{border-color:#a58bd9;box-shadow:0 0 0 3px #eee8fb}.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.drop{border:1.5px dashed #c9b9e8;background:#faf8fe;border-radius:16px;padding:25px;text-align:center}.drop input{max-width:100%;margin-top:12px}.result{background:#faf8fe;border:1px solid var(--line);border-radius:13px;padding:16px;margin-top:14px;white-space:pre-wrap}.listitem{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);gap:12px}.listitem:last-child{border:0}.pill{background:#f0eafb;color:var(--deep);padding:5px 9px;border-radius:20px;font-size:11px}.quizopt{display:block;width:100%;text-align:left;padding:12px;border:1px solid var(--line);background:white;border-radius:11px;margin:8px 0;color:var(--ink)}.quizopt.selected{border-color:var(--purple);background:#f5f0fd}.quizopt.correct{border-color:#62a889;background:#eff9f4}.quizopt.wrong{border-color:#d78c9c;background:#fff2f4}.hidden{display:none!important}.wallpaper{min-height:220px;border-radius:16px;background:linear-gradient(135deg,#d9c9f3,#f4eafa);display:grid;place-items:center;text-align:center;color:#65518f;padding:25px}.footer{text-align:center;color:#aaa1b7;font-size:11px;padding:35px 0 12px}
+@media(max-width:900px){.app{grid-template-columns:1fr}.side{height:auto;position:relative;padding:12px 14px;border-right:0;border-bottom:1px solid var(--line)}.brand{padding:0 5px 10px}.nav{display:flex;overflow:auto;gap:4px}.navlabel,.sidebottom{display:none}.nav button{white-space:nowrap;width:auto;padding:9px 11px}.top{height:60px;padding:0 18px}.content{padding:20px}.grid,.tiles{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.welcome{padding:23px}.orb{display:none}.grid{grid-template-columns:repeat(2,1fr)}.tiles{grid-template-columns:1fr 1fr}.content{padding:15px}.top{padding:0 15px}.user span{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+ <div class="brand"><div class="logo">✦</div><div><strong>StudySpace AI</strong><small>LEARN • GROW • GLOW</small></div></div>
+ <div class="navlabel">MENU UTAMA</div>
+ <nav class="nav">
+  <button class="active" data-page="home"><span class="ico">⌂</span>Dashboard</button>
+  <button data-page="summary"><span class="ico">✧</span>AI Summary</button>
+  <button data-page="quiz"><span class="ico">▤</span>AI Quiz</button>
+  <button data-page="materials"><span class="ico">▣</span>My Materials</button>
+  <button data-page="space"><span class="ico">☁</span>Study Space</button>
+  <button data-page="profile"><span class="ico">☺</span>Profile</button>
+ </nav>
+ <div class="sidebottom">💜 Ruang kecil untuk belajar lebih nyaman.<br><b>Make today count.</b></div>
+</aside>
+<main class="main">
+<header class="top"><div class="crumb" id="crumb">Dashboard</div><div class="user"><span id="topname">Student</span><div class="avatar" id="topavatar">S</div></div></header>
+<div class="content">
+<section class="page active" id="home">
+ <div class="welcome"><div><div class="eyebrow">WELCOME TO YOUR LEARNING SPACE</div><h1>Belajar lebih mudah,<br>bertumbuh setiap hari. ✨</h1><p>Atur materi kuliah, buat rangkuman, dan uji pemahamanmu dalam satu ruang belajar.</p><br><button class="btn" onclick="showPage('summary')">Mulai belajar →</button></div><div class="orb">📚</div></div>
+ <div class="sectionhead"><h2>Aktivitas belajarmu</h2><span class="muted" style="font-size:12px">Ringkasan perangkat ini</span></div>
+ <div class="grid">
+  <div class="stat"><div class="sico">📄</div><b id="countMaterials">0</b><span>Materi tersimpan</span></div>
+  <div class="stat"><div class="sico">✍️</div><b id="countNotes">0</b><span>Catatan belajar</span></div>
+  <div class="stat"><div class="sico">🧠</div><b id="countQuiz">0</b><span>Latihan diselesaikan</span></div>
+  <div class="stat"><div class="sico">🌷</div><b>∞</b><span>Kesempatan berkembang</span></div>
+ </div>
+ <div class="sectionhead"><h2>Jelajahi fitur</h2></div>
+ <div class="tiles">
+  <div class="tile" onclick="showPage('summary')"><div class="sico">✧</div><h3>AI Summary</h3><p>Ubah materi menjadi catatan ringkas.</p></div>
+  <div class="tile" onclick="showPage('quiz')"><div class="sico">📝</div><h3>AI Quiz</h3><p>Latihan soal dan pembahasan.</p></div>
+  <div class="tile" onclick="showPage('materials')"><div class="sico">📚</div><h3>My Materials</h3><p>Kelola dokumen kuliah.</p></div>
+  <div class="tile" onclick="showPage('space')"><div class="sico">☁️</div><h3>Study Space</h3><p>Personalisasi ruang belajarmu.</p></div>
+ </div>
+ <div class="panel"><h3>🌱 Catatan penyemangat</h3><p class="muted">“Kemajuan kecil yang dilakukan setiap hari akan membawamu lebih dekat pada tujuan.”</p></div>
+</section>
+<section class="page" id="summary">
+ <div class="eyebrow">SMART STUDY TOOLS</div><h1>AI Summary ✧</h1><p class="muted">Unggah materi kuliah untuk menyiapkan rangkuman belajar.</p>
+ <div class="panel"><h3>Unggah materi</h3><div class="drop">📎<br><b>Pilih dokumen pembelajaran</b><br><span class="muted">PDF, PPT, PPTX, DOCX, TXT</span><br><input id="summaryFile" type="file" accept=".pdf,.ppt,.pptx,.docx,.txt"></div><button class="btn" style="margin-top:14px" onclick="summarize()">Buat rangkuman demo</button><div id="summaryResult" class="result hidden"></div><p class="muted" style="font-size:12px">Catatan: prototipe ini menampilkan alur demo. Pembacaan dokumen otomatis berbasis AI memerlukan backend dan layanan AI yang terhubung.</p></div>
+ <div class="panel"><h3>Atau tulis materi di sini</h3><textarea class="field" id="manualText" rows="6" placeholder="Tempelkan teks materi kuliah..."></textarea><button class="btn light" onclick="summarizeText()">Ringkas teks demo</button></div>
+</section>
+<section class="page" id="quiz">
+ <div class="eyebrow">TEST YOUR KNOWLEDGE</div><h1>AI Quiz 🧠</h1><p class="muted">Latihan singkat untuk menguji pemahamanmu.</p>
+ <div class="panel"><div class="row"><div><span class="pill">CONTOH LATIHAN</span><h3 style="margin-top:12px">Dasar-Dasar Manajemen</h3></div><div style="text-align:right;color:var(--muted);font-size:12px">3 pertanyaan</div></div><div id="quizArea"></div><button class="btn" id="submitQuiz" onclick="gradeQuiz()">Periksa jawaban</button><div id="quizResult" class="result hidden"></div></div>
+ <p class="muted" style="font-size:12px">Pembuatan soal otomatis dari dokumen yang diunggah memerlukan integrasi AI di backend.</p>
+</section>
+<section class="page" id="materials">
+ <div class="eyebrow">YOUR DIGITAL LIBRARY</div><h1>My Materials 📚</h1><p class="muted">Daftar materi yang kamu tambahkan pada perangkat ini.</p>
+ <div class="panel"><div class="row"><input class="field" id="materialName" placeholder="Nama materi atau mata kuliah" style="margin:0"><button class="btn" style="flex:0 0 auto" onclick="addMaterial()">+ Tambah</button></div><div id="materialList" style="margin-top:15px"></div></div>
+</section>
+<section class="page" id="space">
+ <div class="eyebrow">MAKE IT YOURS</div><h1>Personal Study Space ☁️</h1><p class="muted">Buat ruang belajar yang terasa nyaman dan personal.</p>
+ <div class="panel"><h3>Wallpaper ruang belajar</h3><div class="wallpaper" id="wallpaper"><div><div style="font-size:38px">🌷</div><h2>My Little Study Space</h2><p>Small steps every day.</p></div></div><label class="muted" for="wallFile">Pilih foto dari perangkat</label><input class="field" id="wallFile" type="file" accept="image/*" onchange="setWallpaper(event)"><button class="btn light" onclick="resetWallpaper()">Kembalikan wallpaper awal</button></div>
+ <div class="panel"><h3>Catatan belajar pribadi</h3><textarea class="field" id="noteText" rows="4" placeholder="Tulis target atau catatan belajarmu..."></textarea><button class="btn" onclick="saveNote()">Simpan catatan</button><div id="noteSaved" class="muted" style="margin-top:10px"></div></div>
+</section>
+<section class="page" id="profile">
+ <div class="eyebrow">YOUR ACCOUNT</div><h1>Profile ☺</h1><p class="muted">Atur nama tampilan untuk pengalaman belajar yang lebih personal.</p>
+ <div class="panel"><div class="avatar" style="width:60px;height:60px;font-size:24px" id="profileAvatar">S</div><label>Nama tampilan</label><input class="field" id="profileName" placeholder="Nama mahasiswa"><label>Program studi</label><input class="field" id="profileMajor" placeholder="Contoh: Manajemen"><button class="btn" onclick="saveProfile()">Simpan profil</button><div id="profileSaved" class="muted" style="margin-top:10px"></div></div>
+ <div class="panel"><h3>Informasi prototipe</h3><p class="muted">Website ini adalah prototipe front-end. Login, sinkronisasi lintas perangkat, penyimpanan cloud, dan AI sungguhan belum aktif. Jangan masukkan kata sandi atau data sensitif pada versi demo ini.</p></div>
+</section>
+<div class="footer">Made with 💜 for curious minds · StudySpace AI</div>
+</div></main></div>
+<script>
+const pages=['home','summary','quiz','materials','space','profile'];
+function showPage(id){pages.forEach(p=>document.getElementById(p).classList.toggle('active',p===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));document.getElementById('crumb').textContent=({home:'Dashboard',summary:'AI Summary',quiz:'AI Quiz',materials:'My Materials',space:'Study Space',profile:'Profile'})[id];}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+let materials=JSON.parse(localStorage.getItem('ss_materials')||'[]'),notes=JSON.parse(localStorage.getItem('ss_notes')||'[]'),quizDone=0;
+function refresh(){document.getElementById('countMaterials').textContent=materials.length;document.getElementById('countNotes').textContent=notes.length;document.getElementById('countQuiz').textContent=quizDone;document.getElementById('materialList').innerHTML=materials.length?materials.map((m,i)=>`<div class="listitem"><span>📄 ${escapeHtml(m)}</span><button class="btn ghost" onclick="removeMaterial(${i})">Hapus</button></div>`).join(''):'<p class="muted">Belum ada materi. Tambahkan materi pertamamu.</p>';}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function addMaterial(){let v=document.getElementById('materialName').value.trim();if(!v)return;materials.push(v);localStorage.setItem('ss_materials',JSON.stringify(materials));document.getElementById('materialName').value='';refresh();}
+function removeMaterial(i){materials.splice(i,1);localStorage.setItem('ss_materials',JSON.stringify(materials));refresh();}
+function summarize(){let f=document.getElementById('summaryFile').files[0];let out=document.getElementById('summaryResult');out.classList.remove('hidden');out.textContent=f?`File "${f.name}" berhasil dipilih untuk alur demo.\n\nUntuk menghasilkan rangkuman yang benar-benar membaca isi PDF/PPT/DOCX, website perlu backend pemrosesan dokumen dan koneksi model AI.`:'Silakan pilih file terlebih dahulu, atau tempelkan teks materi pada kotak di bawah.';}
+function summarizeText(){let t=document.getElementById('manualText').value.trim(),out=document.getElementById('summaryResult');out.classList.remove('hidden');if(!t){out.textContent='Tempelkan teks materi terlebih dahulu.';return;}let sentences=t.split(/(?<=[.!?])\s+/).filter(Boolean);out.textContent='RANGKUMAN DEMO\n\n'+sentences.slice(0,Math.max(2,Math.ceil(sentences.length/3))).join(' ')+'\n\nCatatan: ini pemilihan kalimat sederhana, bukan rangkuman AI.';}
+const questions=[{q:'Apa tujuan utama manajemen?',o:['Mencapai tujuan organisasi secara efektif dan efisien','Menghilangkan seluruh risiko','Menambah pekerjaan tanpa rencana'],a:0,e:'Manajemen membantu organisasi mencapai tujuan secara efektif dan efisien.'},{q:'Fungsi manajemen yang berkaitan dengan penentuan tujuan dan langkah kerja adalah…',o:['Pengawasan','Perencanaan','Pengarahan'],a:1,e:'Perencanaan menetapkan tujuan dan cara untuk mencapainya.'},{q:'Kegiatan membandingkan hasil kerja dengan standar termasuk fungsi…',o:['Pengorganisasian','Staffing','Pengawasan'],a:2,e:'Pengawasan memantau dan mengevaluasi hasil agar sesuai rencana.'}];
+function renderQuiz(){document.getElementById('quizArea').innerHTML=questions.map((q,i)=>`<div style="margin:18px 0"><b>${i+1}. ${q.q}</b>${q.o.map((o,j)=>`<button class="quizopt" data-q="${i}" data-a="${j}" onclick="pick(${i},${j})">${String.fromCharCode(65+j)}. ${o}</button>`).join('')}</div>`).join('');}
+let picks={};function pick(i,j){picks[i]=j;document.querySelectorAll(`[data-q="${i}"]`).forEach(b=>b.classList.toggle('selected',Number(b.dataset.a)===j));}
+function gradeQuiz(){let score=0;let details=questions.map((q,i)=>{let ok=picks[i]===q.a;if(ok)score++;return `${i+1}. ${ok?'Benar':'Belum tepat'} — ${q.e}`});let r=document.getElementById('quizResult');r.classList.remove('hidden');r.textContent=`Skor kamu: ${score}/${questions.length}\n\n${details.join('\n\n')}`;quizDone++;document.getElementById('countQuiz').textContent=quizDone;}
+function saveNote(){let v=document.getElementById('noteText').value.trim();if(!v)return;notes.push(v);localStorage.setItem('ss_notes',JSON.stringify(notes));document.getElementById('noteText').value='';document.getElementById('noteSaved').textContent='Catatan tersimpan pada perangkat ini 💜';refresh();}
+function setWallpaper(e){let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{document.getElementById('wallpaper').style.background=`linear-gradient(#4b3c6450,#4b3c6450),url("${reader.result}") center/cover`;document.getElementById('wallpaper').style.color='white';};reader.readAsDataURL(f);}
+function resetWallpaper(){document.getElementById('wallpaper').style.background='linear-gradient(135deg,#d9c9f3,#f4eafa)';document.getElementById('wallpaper').style.color='#65518f';document.getElementById('wallFile').value='';}
+function saveProfile(){let n=document.getElementById('profileName').value.trim()||'Student';document.getElementById('topname').textContent=n;document.getElementById('topavatar').textContent=n[0].toUpperCase();document.getElementById('profileAvatar').textContent=n[0].toUpperCase();localStorage.setItem('ss_name',n);localStorage.setItem('ss_major',document.getElementById('profileMajor').value);document.getElementById('profileSaved').textContent='Profil tampilan tersimpan di perangkat ini.';}
+(function(){let n=localStorage.getItem('ss_name');if(n){document.getElementById('profileName').value=n;document.getElementById('topname').textContent=n;document.getElementById('topavatar').textContent=n[0].toUpperCase();document.getElementById('profileAvatar').textContent=n[0].toUpperCase();}document.getElementById('profileMajor').value=localStorage.getItem('ss_major')||'';refresh();renderQuiz();})();
+</script>
+</body></html>
