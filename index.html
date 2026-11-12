@@ -210,5 +210,109 @@
   });
 </script>
 
+
+<section class="card hidden" id="materialsSection">
+  <h2>📚 Upload Materi</h2>
+  <p>Pilih materi PDF atau PowerPoint untuk dibaca.</p>
+
+  <input
+    type="file"
+    id="materialFile"
+    accept=".pdf,.pptx,application/pdf,application/vnd.openxmlformats-officedocument.presentationml.presentation"
+  >
+
+  <button id="readMaterialBtn">Baca Materi</button>
+
+  <p id="uploadMessage"></p>
+
+  <div id="materialResult"></div>
+</section>
+
+<script type="module">
+  import * as pdfjsLib from
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.min.mjs";
+
+  import JSZip from
+    "https://cdn.jsdelivr.net/npm/jszip@3.10.1/+esm";
+
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.4.168/pdf.worker.min.mjs";
+
+  const fileInput = document.getElementById("materialFile");
+  const readButton = document.getElementById("readMaterialBtn");
+  const uploadMessage = document.getElementById("uploadMessage");
+  const materialResult = document.getElementById("materialResult");
+
+  readButton.addEventListener("click", async () => {
+    const file = fileInput.files[0];
+
+    if (!file) {
+      uploadMessage.textContent = "Silakan pilih file terlebih dahulu.";
+      return;
+    }
+
+    try {
+      uploadMessage.textContent = "Sedang membaca materi...";
+      materialResult.textContent = "";
+
+      let extractedText = "";
+
+      if (file.name.toLowerCase().endsWith(".pdf")) {
+        const pdf = await pdfjsLib.getDocument({
+          data: await file.arrayBuffer()
+        }).promise;
+
+        for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+          const page = await pdf.getPage(pageNumber);
+          const content = await page.getTextContent();
+
+          extractedText += content.items
+            .map(item => item.str)
+            .join(" ") + "\n\n";
+        }
+      } else if (file.name.toLowerCase().endsWith(".pptx")) {
+        const zip = await JSZip.loadAsync(file);
+        const slides = Object.keys(zip.files)
+          .filter(name => /^ppt\/slides\/slide\d+\.xml$/.test(name))
+          .sort((a, b) => {
+            const numberA = Number(a.match(/slide(\d+)/)[1]);
+            const numberB = Number(b.match(/slide(\d+)/)[1]);
+            return numberA - numberB;
+          });
+
+        for (const slide of slides) {
+          const xml = await zip.files[slide].async("text");
+          const parsed = new DOMParser().parseFromString(
+            xml, "application/xml"
+          );
+
+          extractedText += Array.from(
+            parsed.getElementsByTagName("a:t")
+          ).map(node => node.textContent).join(" ") + "\n\n";
+        }
+      } else {
+        throw new Error("Format file belum didukung.");
+      }
+
+      if (!extractedText.trim()) {
+        throw new Error("Teks tidak ditemukan dalam dokumen.");
+      }
+
+      const heading = document.createElement("h3");
+      heading.textContent = file.name;
+
+      const preview = document.createElement("pre");
+      preview.style.whiteSpace = "pre-wrap";
+      preview.style.maxHeight = "350px";
+      preview.style.overflowY = "auto";
+      preview.textContent = extractedText;
+
+      materialResult.append(heading, preview);
+      uploadMessage.textContent = "Materi berhasil dibaca!";
+    } catch (error) {
+      uploadMessage.textContent = "Gagal membaca: " + error.message;
+    }
+  });
+</script>
 </body>
 </html>
